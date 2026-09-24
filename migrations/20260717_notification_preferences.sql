@@ -1,0 +1,4 @@
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS notify_ratings BOOLEAN DEFAULT true;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS notify_defaults BOOLEAN DEFAULT true;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS notify_replies BOOLEAN DEFAULT true;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS notify_logins BOOLEAN DEFAULT true;

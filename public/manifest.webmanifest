@@ -1,0 +1,16 @@
+{
+  "name": "رپتوک",
+  "short_name": "رپتوک",
+  "description": "خواندن رمان‌های رپتوک به‌صورت آنلاین و آفلاین",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#05060f",
+  "theme_color": "#7c3aed",
+  "icons": [
+    { "src": "/logo-128.webp", "sizes": "128x128", "type": "image/webp", "purpose": "any" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

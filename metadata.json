@@ -1,0 +1,8 @@
+{
+  "name": "WebNovelE23V01",
+  "description": "An elegant, highly-styled web novel reading and writing platform. Featuring an immersive cybernetic black-and-blue dark mode, a full writing suite, and an interactive modern reader with typography preferences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

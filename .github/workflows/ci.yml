@@ -1,0 +1,116 @@
+name: Reptoc validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  application:
+    name: Build, test, migrate, and boot
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: reptoc_ci
+          POSTGRES_PASSWORD: reptoc_ci_password
+          POSTGRES_DB: reptoc_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U reptoc_ci -d reptoc_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://reptoc_ci:reptoc_ci_password@127.0.0.1:5432/reptoc_ci
+      ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      JWT_SECRET: ci-only-jwt-secret-not-used-in-production
+      IP_HASH_PEPPER: ci-only-ip-hash-pepper
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate installer entry points
+        run: |
+          bash -n install.sh
+          bash -n installer.sh
+          ./install.sh --help
+
+      - name: Type-check
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:worldbuilding
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Bootstrap and migrate an empty database
+        run: |
+          psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 -f postgres_schema.sql
+          psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 -f postgres_suggestion_schema.sql
+          npm run db:migrate
+          npm run db:migrate:status
+
+      - name: Boot and health-check production server
+        env:
+          NODE_ENV: production
+          HOST: 127.0.0.1
+          PORT: 43123
+          APP_URL: https://example.invalid
+          ALLOWED_ORIGINS: https://example.invalid
+          INITIAL_ADMIN_USERNAME: ciadmin
+          INITIAL_ADMIN_EMAIL: ciadmin@example.invalid
+          INITIAL_ADMIN_PASSWORD: CI-Only-Owner-Password-1234
+        run: |
+          npm start >/tmp/reptoc-ci-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; cat /tmp/reptoc-ci-server.log' EXIT
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:43123/api/health; then
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1
+
+  installer:
+    name: Fresh-server installer
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run complete installer
+        run: |
+          sudo ./install.sh \
+            --non-interactive \
+            --domain 127.0.0.1 \
+            --admin-user ciowner \
+            --admin-email ciowner@example.invalid \
+            --admin-password CI-Installer-Password-1234
+
+      - name: Verify installed services and HTTP endpoints
+        run: |
+          sudo systemctl is-active --quiet postgresql
+          sudo systemctl is-active --quiet reptoc
+          sudo systemctl is-active --quiet nginx
+          curl -fsS http://127.0.0.1:3000/api/health
+          curl -fsS http://127.0.0.1/api/health

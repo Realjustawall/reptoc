@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-labelledby="title description">
+  <title id="title">Image unavailable</title>
+  <desc id="description">A neutral Reptoc image placeholder.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#background)"/>
+  <rect x="126" y="214" width="348" height="390" rx="32" fill="none" stroke="#818cf8" stroke-width="16" opacity=".8"/>
+  <path d="m166 535 92-106 64 67 48-50 64 89" fill="none" stroke="#a5b4fc" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="372" cy="338" r="38" fill="#a5b4fc" opacity=".8"/>
+  <text x="300" y="704" fill="#e0e7ff" font-family="system-ui,sans-serif" font-size="32" font-weight="700" text-anchor="middle">IMAGE UNAVAILABLE</text>
+</svg>
