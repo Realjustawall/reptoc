@@ -1,22 +1,53 @@
-# Reptoc Webnovel Platform
+<div align="center">
 
-Reptoc is a full-stack Persian/RTL webnovel and manga platform built with
-React, Express, Socket.IO, and PostgreSQL. It includes reading and writing
-workspaces, moderation, forums, recommendations, analytics, premium features,
-worldbuilding tools, events, manga pages, media uploads, and administration.
+![Reptoc](docs/assets/banner-en.svg)
 
-## One-command server installation
+**A Persian webnovel and manga platform with reading and writing workspaces, community features, worldbuilding and administration.**
 
-Supported systems:
+<img alt="Version" src="https://img.shields.io/badge/version-source-b65aff?style=flat-square" />
+<img alt="Platform" src="https://img.shields.io/badge/platform-Persian%20%2F%20RTL%20web-354158?style=flat-square" />
+<a href="https://github.com/Realjustawall/reptoc/actions/workflows/ci.yml"><img alt="CI status" src="https://img.shields.io/github/actions/workflow/status/Realjustawall/reptoc/ci.yml?branch=main&amp;label=CI&amp;style=flat-square" /></a>
 
-- Ubuntu 22.04, 24.04, or newer
-- Debian 12 or newer
-- A fresh server with root or `sudo` access
-- At least 2 GB RAM; 4 GB is recommended during the build
-- A domain pointed to the server for automatic HTTPS, or the public server IP
-  for an HTTP-only installation
+<a href="https://github.com/Realjustawall/reptoc/archive/refs/heads/main.zip"><img src="https://img.shields.io/badge/Download-b65aff?style=flat-square&labelColor=161b22" alt="Download" /></a>
+<a href="docs/gallery.en.md"><img src="https://img.shields.io/badge/Demo%20gallery-5968c3?style=flat-square&labelColor=161b22" alt="Demo gallery" /></a>
+<a href="#quick-start"><img src="https://img.shields.io/badge/Quick%20start-354158?style=flat-square&labelColor=161b22" alt="Quick start" /></a>
+<a href="https://github.com/Realjustawall/reptoc/issues"><img src="https://img.shields.io/badge/Report%20an%20issue-354158?style=flat-square&labelColor=161b22" alt="Report an issue" /></a>
 
-Clone the repository and run the installer:
+[English](README.md) · [فارسی](README.fa.md)
+
+</div>
+
+---
+
+[Highlights](#features) · [Preview](#preview) · [Quick start](#quick-start) · [Development](#development) · [Documentation](#documentation) · [Security and privacy](#security) · [License and feedback](#license)
+
+<a id="features"></a>
+
+## Highlights
+
+| Capability | What you get |
+|---|---|
+| Reading | Webnovels, manga pages, bookmarks, reading progress and offline chapter downloads. |
+| Writing | Novel/chapter workspaces, rich editing, cover and character tools. |
+| Worldbuilding | Structured lore, resources, timelines and relationships. |
+| Community | Profiles, author pages, forums, challenges, comments and recommendations. |
+| Operations | Moderation, analytics, premium tools and administration backed by PostgreSQL. |
+
+<a id="preview"></a>
+
+## Preview
+
+The interface is currently Persian. Local preview data is fictional. API-backed gallery pages use local response fixtures; offline library/reader pages use seeded IndexedDB. No production account or PostgreSQL-backed authentication is demonstrated.
+
+[Open the full gallery](docs/gallery.en.md)
+
+[Browse the original Persian interface screenshots](docs/gallery.fa.md).
+
+<a id="quick-start"></a>
+
+## Quick start
+
+Use a fresh Ubuntu 22.04/24.04+ or Debian 12+ server with sudo access. Allow at least 2 GB RAM; 4 GB is recommended during the build.
 
 ```bash
 git clone https://github.com/Realjustawall/reptoc.git
@@ -24,75 +55,58 @@ cd reptoc
 sudo ./install.sh
 ```
 
-The interactive installer asks for the public domain/IP and owner account. It
-then installs Node.js and PostgreSQL, creates a database, applies all migrations,
-generates secrets, builds the application, installs a systemd service, configures
-Nginx, optionally obtains a Let's Encrypt certificate, and checks the live
-health endpoint.
+The installer asks for the domain/IP and owner account, provisions PostgreSQL, applies migrations, builds the app and configures the service/Nginx. HTTPS certificate setup is optional and requires the relevant domain/network access. It refuses to overwrite an existing `/opt/reptoc/.env`.
 
-For an unattended HTTPS installation:
+Read [INSTALL.md](INSTALL.md) for configuration, existing databases, backups and operations. Deployment and platform use require the permission described in [LICENSE](LICENSE).
 
-```bash
-sudo ./install.sh --non-interactive \
-  --domain novels.example.com \
-  --admin-user admin \
-  --admin-email owner@example.com \
-  --ssl \
-  --certbot-email owner@example.com
-```
-
-When `--admin-password` is omitted, the installer generates a strong password
-and prints it once. Avoid placing passwords directly in shell history.
-
-To use an existing PostgreSQL service:
-
-```bash
-sudo DATABASE_URL='postgresql://user:password@db.example.com/reptoc?sslmode=require' \
-  ./install.sh --non-interactive --domain novels.example.com
-```
-
-The default application directory is `/opt/reptoc`. This is a fresh-server
-installer and will refuse to overwrite an existing `/opt/reptoc/.env`.
-
-See [INSTALL.md](INSTALL.md) for configuration, operations, optional services,
-and backup guidance.
+<a id="development"></a>
 
 ## Development
+
+Node.js/npm and a PostgreSQL database. Copy `.env.example`, configure database access and generate the required `ENCRYPTION_KEY` before startup.
 
 ```bash
 cp .env.example .env
 npm ci
-npm run dev
-```
-
-A PostgreSQL database is required. Initialize it with:
-
-```bash
+# Configure .env and an empty development database first.
+: "${DATABASE_URL:?Export the database URL configured in .env first}"
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f postgres_schema.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f postgres_suggestion_schema.sql
 npm run db:migrate
+npm run dev
 ```
 
-Verification commands:
+Validation commands:
 
 ```bash
 npm run lint
-ENCRYPTION_KEY="$(openssl rand -hex 32)" npm run test:worldbuilding
+npm run test:worldbuilding
 npm run build
 ```
 
-GitHub Actions runs these checks against a clean PostgreSQL database and also
-performs an end-to-end installation on a fresh Ubuntu runner.
+<a id="documentation"></a>
 
-## Security and private data
+## Documentation
 
-This repository intentionally contains no production `.env`, credentials,
-database dump, user upload, runtime log, or server backup. Never commit those
-files. Back up both PostgreSQL and `/opt/reptoc/uploads` separately.
+- [Installation and operations](INSTALL.md)
+- [Implementation guide](IMPLEMENTATION_GUIDE.md)
+- [Worldbuilding and premium](WORLDBUILDING_AND_PREMIUM.md)
+- [Preserved documentation reference](REFERENCE.md)
 
-## License and permission
+<a id="security"></a>
 
-This project is source-available, not open source. Legal fair-use rights are
-preserved, but deploying, distributing, selling, or using this code to create
-or operate a webnovel/manga platform requires prior written permission from the
-copyright holder. See [LICENSE](LICENSE) for the complete terms.
+## Security and privacy
+
+Keep `.env`, database dumps, user uploads and runtime backups out of Git. Use a persistent random encryption key and maintain separate PostgreSQL/upload backups. The showcase uses demo API data and is not evidence of a production security audit.
+
+<a id="license"></a>
+
+## License and feedback
+
+Source-available, not an open-source license. Deploying/operating a platform, redistribution and other reserved uses require permission; see [LICENSE](LICENSE).
+
+[Report bugs or discuss improvements](https://github.com/Realjustawall/reptoc/issues). Include your version, OS and reproducible steps; keep credentials and private data out of reports.
+
+---
+
+Maintained by **[Realjustawall](https://github.com/Realjustawall)**.

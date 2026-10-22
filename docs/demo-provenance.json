@@ -1,0 +1,83 @@
+{
+  "source_commit": "00a73cfce17d7b5669cfae301a5cdf06826d3e10",
+  "captures": [
+    {
+      "path": "docs/assets/screenshots/fa/02-offline-library.webp",
+      "language": "fa",
+      "capture_method": "Built application + seeded IndexedDB test chapters; PostgreSQL unavailable; reader tested with API requests disconnected",
+      "source_png_sha256": "c61c4fb73314f04a25eafcf2a7fc5fbd61ef62f596d9845528c7c57c84ab8421"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/03-offline-reader.webp",
+      "language": "fa",
+      "capture_method": "Built application + seeded IndexedDB test chapters; PostgreSQL unavailable; reader tested with API requests disconnected",
+      "source_png_sha256": "86f0e5048ef626bad4acee9067fff87bbccb38ec00b25d828a243eb03bddecf6"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/04-home-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "5fd9d57fba30991eff0988f10844ad90f7509032fa3671311da7dd22957c7689"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/05-home-collections-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "e8b3d5a13bc662fe91f7f602400ad5957c59e0859d81fb8e8307337cce5b746f"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/06-discover-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "f94de1efac7cd696ad84a1161281c01edc77d5d9fa20c55143fbc4a2cfd2e211"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/07-novel-details-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "3d4652e6d43dbe907bbfa1519711a967a0f559cc8637ba3c93385db6f3284e19"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/08-reading-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "b0277e14c881bc86afd95cec1764d3d8a0e130a4aee875a5aed9cc2101ea0c5c"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/09-profile-overview-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "4e736513c3c3d4d39770dd3393cf90a127ed59efa8b0b220c87b46e6f4871c79"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/10-profile-preferences-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "741ae8a2b71c3b0292a08e9b3a5e20bf19862e27430b7f33f5c900a50ea92a5f"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/11-bookmarks-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "2af37bc63516d15b9b7917309443b8cbd2b524ea73f077f5590d05987cf8e858"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/12-writing-workspace-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "862b2030748d432eda325a486926c34e71ec5036dc99ddb535eff6062ab1e89c"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/13-appearance-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "9c9ea47858ea0c8c07bdb0469eafda67f81d215024f3d013e9fe5e7d26a4aa10"
+    },
+    {
+      "path": "docs/assets/screenshots/fa/14-author-profile-demo.webp",
+      "language": "fa",
+      "capture_method": "Original compiled React UI with local API fixtures, demo account and demo catalogue; PostgreSQL-backed account state is simulated. No live user profile or production data.",
+      "source_png_sha256": "a4be46368ec025fca900f450aa014ad69dc46cb716cbabcd92bb765309f0c259"
+    }
+  ]
+}
